@@ -4,8 +4,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from 'src/users/users.module';
 import { User } from 'src/users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
-import { BlogBostModule } from './blog-bost/blog-bost.module';
-import { BlogBost } from './blog-bost/entities/blog-bost.entity'; // ✅ import this
+import { BlogPost } from './blog-post/entities/blog-post.entity';
+
+// import { BlogPostsModule } from './blog-post/blog-post.module';
+
+// ✅ import this
 
 @Module({
   imports: [
@@ -20,7 +23,7 @@ import { BlogBost } from './blog-bost/entities/blog-bost.entity'; // ✅ import 
         password: cfg.get<string>('DB_PASSWORD'),
         database: cfg.get<string>('DB_NAME'),
         ssl: cfg.get<string>('DB_SSL') === 'true' ? { rejectUnauthorized: false } : false,
-        entities: [User,BlogBost],
+        entities: [User,BlogPost],
         synchronize: cfg.get<string>('DB_SYNC') === 'true', // dev only
         logging: cfg.get<string>('DB_LOGGING') === 'true',
         timezone: cfg.get<string>('DB_TIMEZONE') || 'Z',
@@ -30,7 +33,7 @@ import { BlogBost } from './blog-bost/entities/blog-bost.entity'; // ✅ import 
     ConfigModule.forRoot({ isGlobal: true }), // ✅
     UsersModule,
     AuthModule,
-    BlogBostModule,
+    BlogPost,
     // AuthModule,
   ],
 })
